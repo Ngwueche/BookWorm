@@ -36,10 +36,6 @@ namespace BookWorm.DataAccess.Repositories.Repositories
         //{
         //    throw new NotImplementedException();
         //} 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
 
         public void Update(Category category)
         {
