@@ -3,7 +3,7 @@ using BookWorm.DataAccess.Repositories.IRepositories;
 
 namespace BookWorm.DataAccess.Repositories.Repositories
 {
-    internal class UnitofWork : IUnitofWork
+    public class UnitofWork : IUnitofWork
     {
         private readonly ApplicationDbContext _context;
         public ICategoryRepository categoryRepository { get; private set; }
