@@ -3,8 +3,9 @@ using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookWorm.Controllers
+namespace BookWorm.API.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitofWork _unitOfWork;
