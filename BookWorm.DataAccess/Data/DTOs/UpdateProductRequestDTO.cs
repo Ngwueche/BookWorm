@@ -2,7 +2,7 @@
 
 namespace BookWorm.DataAccess.Data.DTOs
 {
-    public class CreateProductRequestDTO
+    public class UpdateProductRequestDTO
     {
         public string Title { get; set; }
         public string Description { get; set; }

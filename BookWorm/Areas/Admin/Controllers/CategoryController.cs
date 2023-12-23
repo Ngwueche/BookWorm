@@ -8,8 +8,8 @@ namespace BookWorm.API.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly IUnitofWork _unitOfWork;
-        public CategoryController(IUnitofWork UnitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork UnitOfWork)
         {
             _unitOfWork = UnitOfWork;
         }
