@@ -9,9 +9,9 @@ namespace BookWorm.API.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly IUnitofWork _unitOfWork;
-        public CategoryController(IUnitofWork unitOfWork)
+        public CategoryController(IUnitofWork UnitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UnitOfWork;
         }
         public IActionResult Index()
         {
@@ -75,8 +75,6 @@ namespace BookWorm.API.Areas.Admin.Controllers
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
-
         }
-
     }
 }
