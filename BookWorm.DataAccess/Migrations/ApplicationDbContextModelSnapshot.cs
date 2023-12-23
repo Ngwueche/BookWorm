@@ -54,38 +54,47 @@ namespace BookWorm.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8814),
-                            DeletedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8819),
+                            CreatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5606),
+                            DeletedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5609),
                             DisplayOrder = 1,
                             Name = "Fiction",
-                            UpdatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8818)
+                            UpdatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5608)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8824),
-                            DeletedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8825),
+                            CreatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5611),
+                            DeletedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5612),
                             DisplayOrder = 2,
                             Name = "SciFic",
-                            UpdatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8825)
+                            UpdatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5611)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8826),
-                            DeletedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8827),
+                            CreatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5613),
+                            DeletedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5614),
                             DisplayOrder = 3,
                             Name = "History",
-                            UpdatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8827)
+                            UpdatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5613)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8828),
-                            DeletedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8829),
+                            CreatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5615),
+                            DeletedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5615),
                             DisplayOrder = 4,
                             Name = "Horror",
-                            UpdatedAt = new DateTime(2023, 12, 22, 19, 28, 37, 301, DateTimeKind.Utc).AddTicks(8829)
+                            UpdatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5615)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5616),
+                            DeletedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5617),
+                            DisplayOrder = 5,
+                            Name = "Romance",
+                            UpdatedAt = new DateTime(2023, 12, 23, 16, 20, 35, 430, DateTimeKind.Utc).AddTicks(5616)
                         });
                 });
 
@@ -100,6 +109,9 @@ namespace BookWorm.DataAccess.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -126,6 +138,8 @@ namespace BookWorm.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -133,6 +147,7 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = "Billy Spark",
+                            CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
                             ListPrice = 99.0,
@@ -145,6 +160,7 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "Nancy Hoover",
+                            CategoryId = 3,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
                             ListPrice = 40.0,
@@ -157,6 +173,7 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 3,
                             Author = "Julian Button",
+                            CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
                             ListPrice = 55.0,
@@ -169,6 +186,7 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "Abby Muscles",
+                            CategoryId = 4,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
                             ListPrice = 70.0,
@@ -181,7 +199,8 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 5,
                             Author = "Ron Parker",
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CategoryId = 5,
+                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut .\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
                             ListPrice = 30.0,
                             Price = 27.0,
@@ -193,6 +212,7 @@ namespace BookWorm.DataAccess.Migrations
                         {
                             Id = 6,
                             Author = "Laura Phantom",
+                            CategoryId = 3,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "FOT000000001",
                             ListPrice = 25.0,
@@ -201,6 +221,17 @@ namespace BookWorm.DataAccess.Migrations
                             Price50 = 22.0,
                             Title = "Leaves and Wonders"
                         });
+                });
+
+            modelBuilder.Entity("BookWorm.Models.Product", b =>
+                {
+                    b.HasOne("BookWorm.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

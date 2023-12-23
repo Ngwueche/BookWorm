@@ -17,7 +17,8 @@ namespace BookWorm.DataAccess.Data
                 new Category { Id = 1, Name = "Fiction", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "SciFic", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 },
-                new Category { Id = 4, Name = "Horror", DisplayOrder = 4 });
+                new Category { Id = 4, Name = "Horror", DisplayOrder = 4 },
+                new Category { Id = 5, Name = "Romance", DisplayOrder = 5 });
             //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>().HasData(
@@ -31,7 +32,8 @@ namespace BookWorm.DataAccess.Data
                     ListPrice = 99,
                     Price = 90,
                     Price50 = 85,
-                    Price100 = 80
+                    Price100 = 80,
+                    CategoryId = 1,
                 },
                 new Product
                 {
@@ -43,7 +45,8 @@ namespace BookWorm.DataAccess.Data
                     ListPrice = 40,
                     Price = 30,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 3,
                 },
                 new Product
                 {
@@ -55,7 +58,8 @@ namespace BookWorm.DataAccess.Data
                     ListPrice = 55,
                     Price = 50,
                     Price50 = 40,
-                    Price100 = 35
+                    Price100 = 35,
+                    CategoryId = 2,
                 },
                 new Product
                 {
@@ -67,19 +71,21 @@ namespace BookWorm.DataAccess.Data
                     ListPrice = 70,
                     Price = 65,
                     Price50 = 60,
-                    Price100 = 55
+                    Price100 = 55,
+                    CategoryId = 4,
                 },
                 new Product
                 {
                     Id = 5,
                     Title = "Rock in the Ocean",
                     Author = "Ron Parker",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut .\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                     ISBN = "SOTJ1111111101",
                     ListPrice = 30,
                     Price = 27,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 5,
                 },
                 new Product
                 {
@@ -91,7 +97,8 @@ namespace BookWorm.DataAccess.Data
                     ListPrice = 25,
                     Price = 23,
                     Price50 = 22,
-                    Price100 = 20
+                    Price100 = 20,
+                    CategoryId = 3,
                 });
         }
     }
