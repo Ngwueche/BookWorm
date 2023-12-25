@@ -33,7 +33,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
             ProductVM productVM = new ProductVM()
             {
                 CategoryList = categoryList,
-                Product = new Product()
+
             };
             return View(productVM);
         }
@@ -44,16 +44,16 @@ namespace BookWorm.API.Areas.Admin.Controllers
             {
                 var newProduct = new Product
                 {
-                    Title = productVM.Product.Title,
-                    Description = productVM.Product.Description,
-                    ISBN = productVM.Product.ISBN.ToUpper(),
-                    Author = productVM.Product.Author,
-                    ListPrice = productVM.Product.ListPrice,
-                    Price = productVM.Product.Price,
-                    Price50 = productVM.Product.Price50,
-                    Price100 = productVM.Product.Price100,
-                    CategoryId = productVM.Product.CategoryId,
-                    ImageUrl = productVM.Product.ImageUrl,
+                    Title = productVM.Title,
+                    Description = productVM.Description,
+                    ISBN = productVM.ISBN.ToUpper(),
+                    Author = productVM.Author,
+                    ListPrice = productVM.ListPrice,
+                    Price = productVM.Price,
+                    Price50 = productVM.Price50,
+                    Price100 = productVM.Price100,
+                    CategoryId = productVM.CategoryId,
+                    ImageUrl = productVM.ImageUrl,
                 };
                 _unitOfWork.productRepository.Add(newProduct);
                 _unitOfWork.Save();
@@ -71,17 +71,28 @@ namespace BookWorm.API.Areas.Admin.Controllers
             return View(getProduct);
         }
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.productRepository.Update(product);
+                var getProduct = _unitOfWork.productRepository.Get(u => u.Id == productVM.Id);
+                getProduct.Title = productVM.Title;
+                getProduct.Description = productVM.Description;
+                getProduct.ISBN = productVM.ISBN.ToUpper();
+                getProduct.Author = productVM.Author;
+                getProduct.ListPrice = productVM.ListPrice;
+                getProduct.Price = productVM.Price;
+                getProduct.Price50 = productVM.Price50;
+                getProduct.Price100 = productVM.Price100;
+                getProduct.CategoryId = productVM.CategoryId;
+                getProduct.ImageUrl = productVM.ImageUrl;
+
+                _unitOfWork.productRepository.Update(getProduct);
                 _unitOfWork.Save();
                 TempData["Success"] = "Item Updated Suceessfully";
                 return RedirectToAction("Index");
             }
             return View();
-
         }
         [HttpGet]
         public IActionResult Delete(int? id)
