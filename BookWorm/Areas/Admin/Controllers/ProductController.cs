@@ -1,7 +1,8 @@
-﻿using BookWorm.DataAccess.Data.DTOs;
-using BookWorm.DataAccess.Repositories.IRepositories;
+﻿using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
+using BookWorm.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookWorm.API.Areas.Admin.Controllers
 {
@@ -17,28 +18,42 @@ namespace BookWorm.API.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = _unitOfWork.productRepository.GetAll();
+
             return View(products);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            IEnumerable<SelectListItem> categoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
+            ProductVM productVM = new ProductVM()
+            {
+                CategoryList = categoryList,
+                Product = new Product()
+            };
+            return View(productVM);
         }
-        public IActionResult Create(CreateProductRequestDTO createProductRequestDTO)
+        [HttpPost]
+        public IActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
                 var newProduct = new Product
                 {
-                    Title = createProductRequestDTO.Title,
-                    Description = createProductRequestDTO.Description,
-                    ISBN = createProductRequestDTO.ISBN,
-                    Author = createProductRequestDTO.Author,
-                    ListPrice = createProductRequestDTO.ListPrice,
-                    Price = createProductRequestDTO.Price,
-                    Price50 = createProductRequestDTO.Price50,
-                    Price100 = createProductRequestDTO.Price100,
-                    CategoryId = createProductRequestDTO.CategoryId
+                    Title = productVM.Product.Title,
+                    Description = productVM.Product.Description,
+                    ISBN = productVM.Product.ISBN.ToUpper(),
+                    Author = productVM.Product.Author,
+                    ListPrice = productVM.Product.ListPrice,
+                    Price = productVM.Product.Price,
+                    Price50 = productVM.Product.Price50,
+                    Price100 = productVM.Product.Price100,
+                    CategoryId = productVM.Product.CategoryId,
+                    ImageUrl = productVM.Product.ImageUrl,
                 };
                 _unitOfWork.productRepository.Add(newProduct);
                 _unitOfWork.Save();
@@ -56,22 +71,11 @@ namespace BookWorm.API.Areas.Admin.Controllers
             return View(getProduct);
         }
         [HttpPost]
-        public IActionResult Edit(UpdateProductRequestDTO updateProductRequestDTO)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                var newProduct = new Product
-                {
-                    Title = updateProductRequestDTO.Title,
-                    Description = updateProductRequestDTO.Description,
-                    ISBN = updateProductRequestDTO.ISBN,
-                    Author = updateProductRequestDTO.Author,
-                    ListPrice = updateProductRequestDTO.ListPrice,
-                    Price = updateProductRequestDTO.Price,
-                    Price50 = updateProductRequestDTO.Price50,
-                    Price100 = updateProductRequestDTO.Price100,
-                };
-                _unitOfWork.productRepository.Update(newProduct);
+                _unitOfWork.productRepository.Update(product);
                 _unitOfWork.Save();
                 TempData["Success"] = "Item Updated Suceessfully";
                 return RedirectToAction("Index");

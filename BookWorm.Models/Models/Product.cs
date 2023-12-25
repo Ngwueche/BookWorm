@@ -30,14 +30,14 @@ namespace BookWorm.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
-
+        public string ImageUrl { get; set; }
         public int CategoryId { get; set; }
-
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        //public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        //public DateTime DeletedAt { get; set; } = DateTime.UtcNow;
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime DeletedAt { get; set; } = DateTime.UtcNow;
 
     }
 }
