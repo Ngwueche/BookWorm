@@ -22,23 +22,44 @@ namespace BookWorm.API.Areas.Admin.Controllers
             return View(products);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            IEnumerable<SelectListItem> categoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+            ProductVM productVM = new()
             {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-
-            ProductVM productVM = new ProductVM()
-            {
-                CategoryList = categoryList,
-
+                CategoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                })
             };
-            return View(productVM);
+            //create
+            if (id == null || id == 0) { return View(productVM); }
+
+            else
+            {
+                //update
+
+                var product = _unitOfWork.productRepository.Get(u => u.Id == id);
+                if (product == null) return NotFound();
+                productVM.Title = product.Title;
+                productVM.Description = product.Description;
+                productVM.ISBN = product.ISBN.ToUpper();
+                productVM.Author = product.Author;
+                productVM.ListPrice = product.ListPrice;
+                productVM.Price = product.Price;
+                productVM.Price50 = product.Price50;
+                productVM.Price100 = product.Price100;
+                productVM.CategoryId = product.CategoryId;
+                productVM.ImageUrl = product.ImageUrl;
+                return View(productVM);
+
+            }
+
+
         }
+
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -55,45 +76,51 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     CategoryId = productVM.CategoryId,
                     ImageUrl = productVM.ImageUrl,
                 };
-                _unitOfWork.productRepository.Add(newProduct);
-                _unitOfWork.Save();
-                TempData["Success"] = "Item Added Successfully";
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0) return NotFound();
-            var getProduct = _unitOfWork.productRepository.Get(u => u.Id == id);
-            if (getProduct == null) return NotFound();
-            return View(getProduct);
-        }
-        [HttpPost]
-        public IActionResult Edit(ProductVM productVM)
-        {
-            if (ModelState.IsValid)
-            {
-                var getProduct = _unitOfWork.productRepository.Get(u => u.Id == productVM.Id);
-                getProduct.Title = productVM.Title;
-                getProduct.Description = productVM.Description;
-                getProduct.ISBN = productVM.ISBN.ToUpper();
-                getProduct.Author = productVM.Author;
-                getProduct.ListPrice = productVM.ListPrice;
-                getProduct.Price = productVM.Price;
-                getProduct.Price50 = productVM.Price50;
-                getProduct.Price100 = productVM.Price100;
-                getProduct.CategoryId = productVM.CategoryId;
-                getProduct.ImageUrl = productVM.ImageUrl;
 
-                _unitOfWork.productRepository.Update(getProduct);
+                // Check if it's an update by checking if productVM.Id is not zero
+                if (productVM.Id != 0)
+                {
+                    // If it's an update, retrieve the existing product from the database
+                    var existingProduct = _unitOfWork.productRepository.Get(u => u.Id == productVM.Id);
+
+                    // Check if the existing product is found
+                    if (existingProduct == null) return NotFound();
+
+                    // Update properties of the existing product
+                    existingProduct.Title = newProduct.Title;
+                    existingProduct.Description = newProduct.Description;
+                    existingProduct.ISBN = newProduct.ISBN;
+                    existingProduct.Author = newProduct.Author;
+                    existingProduct.ListPrice = newProduct.ListPrice;
+                    existingProduct.Price = newProduct.Price;
+                    existingProduct.Price50 = newProduct.Price50;
+                    existingProduct.Price100 = newProduct.Price100;
+                    existingProduct.CategoryId = newProduct.CategoryId;
+                    existingProduct.ImageUrl = newProduct.ImageUrl;
+
+                    _unitOfWork.productRepository.Update(existingProduct);
+                }
+                else
+                {
+                    // It's a new product, add it to the repository
+                    _unitOfWork.productRepository.Add(newProduct);
+                }
+
                 _unitOfWork.Save();
-                TempData["Success"] = "Item Updated Suceessfully";
+                TempData["Success"] = "Item Saved Successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+
+            // ModelState is not valid, so we need to populate the CategoryList before returning to the view
+            productVM.CategoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
+            return View(productVM);
         }
+
         [HttpGet]
         public IActionResult Delete(int? id)
         {
