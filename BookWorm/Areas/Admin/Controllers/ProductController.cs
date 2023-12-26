@@ -10,9 +10,11 @@ namespace BookWorm.API.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         //Read
         public IActionResult Index()
@@ -57,7 +59,6 @@ namespace BookWorm.API.Areas.Admin.Controllers
 
 
         }
-
         [HttpPost]
         public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
@@ -106,12 +107,21 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     _unitOfWork.productRepository.Add(newProduct);
                 }
 
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    productVM.ImageUrl = @"\images\product\" + fileName;
+                }
                 _unitOfWork.Save();
                 TempData["Success"] = "Item Saved Successfully";
                 return RedirectToAction("Index");
             }
-
-            // ModelState is not valid, so we need to populate the CategoryList before returning to the view
             productVM.CategoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
             {
                 Text = u.Name,
@@ -120,7 +130,6 @@ namespace BookWorm.API.Areas.Admin.Controllers
 
             return View(productVM);
         }
-
         [HttpGet]
         public IActionResult Delete(int? id)
         {
