@@ -10,7 +10,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment; //provides the root folder
         public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -40,9 +40,9 @@ namespace BookWorm.API.Areas.Admin.Controllers
             else
             {
                 //update
-
                 var product = _unitOfWork.productRepository.Get(u => u.Id == id);
                 if (product == null) return NotFound();
+                productVM.Id = product.Id;
                 productVM.Title = product.Title;
                 productVM.Description = product.Description;
                 productVM.ISBN = product.ISBN.ToUpper();
@@ -54,9 +54,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                 productVM.CategoryId = product.CategoryId;
                 productVM.ImageUrl = product.ImageUrl;
                 return View(productVM);
-
             }
-
 
         }
         [HttpPost]
@@ -64,6 +62,17 @@ namespace BookWorm.API.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null) //checks if a file exists.
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); //gives the the file a new name
+                    string productPath = Path.Combine(wwwRootPath, @"images\product"); //gives the file a path
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create)) //saves the file to the path
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    productVM.ImageUrl = @"\images\product\" + fileName;
+                }
                 var newProduct = new Product
                 {
                     Title = productVM.Title,
@@ -88,16 +97,16 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     if (existingProduct == null) return NotFound();
 
                     // Update properties of the existing product
-                    existingProduct.Title = newProduct.Title;
-                    existingProduct.Description = newProduct.Description;
-                    existingProduct.ISBN = newProduct.ISBN;
-                    existingProduct.Author = newProduct.Author;
-                    existingProduct.ListPrice = newProduct.ListPrice;
-                    existingProduct.Price = newProduct.Price;
-                    existingProduct.Price50 = newProduct.Price50;
-                    existingProduct.Price100 = newProduct.Price100;
-                    existingProduct.CategoryId = newProduct.CategoryId;
-                    existingProduct.ImageUrl = newProduct.ImageUrl;
+                    existingProduct.Title = productVM.Title;
+                    existingProduct.Description = productVM.Description;
+                    existingProduct.ISBN = productVM.ISBN;
+                    existingProduct.Author = productVM.Author;
+                    existingProduct.ListPrice = productVM.ListPrice;
+                    existingProduct.Price = productVM.Price;
+                    existingProduct.Price50 = productVM.Price50;
+                    existingProduct.Price100 = productVM.Price100;
+                    existingProduct.CategoryId = productVM.CategoryId;
+                    existingProduct.ImageUrl = productVM.ImageUrl;
 
                     _unitOfWork.productRepository.Update(existingProduct);
                 }
@@ -105,18 +114,6 @@ namespace BookWorm.API.Areas.Admin.Controllers
                 {
                     // It's a new product, add it to the repository
                     _unitOfWork.productRepository.Add(newProduct);
-                }
-
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-                if (file != null)
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string productPath = Path.Combine(wwwRootPath, @"images\product");
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                    productVM.ImageUrl = @"\images\product\" + fileName;
                 }
                 _unitOfWork.Save();
                 TempData["Success"] = "Item Saved Successfully";
