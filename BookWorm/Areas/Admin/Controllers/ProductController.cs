@@ -19,7 +19,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         //Read
         public IActionResult Index()
         {
-            var products = _unitOfWork.productRepository.GetAll();
+            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
 
             return View(products);
         }
@@ -67,6 +67,16 @@ namespace BookWorm.API.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName); //gives the the file a new name
                     string productPath = Path.Combine(wwwRootPath, @"images\product"); //gives the file a path
+                    //Delete an existing image if a new one is to be updated
+                    if (!string.IsNullOrEmpty(productVM.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.ImageUrl.Trim('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    //upload new image
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create)) //saves the file to the path
                     {
                         file.CopyTo(fileStream);

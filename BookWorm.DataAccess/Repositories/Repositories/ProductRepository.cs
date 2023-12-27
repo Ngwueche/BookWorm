@@ -13,7 +13,22 @@ namespace BookWorm.DataAccess.Repositories.Repositories
         }
         public void Update(Product product)
         {
-            _context.Products.Update(product);
+            var existingProduct = _context.Products.FirstOrDefault(u => u.Id == product.Id);
+            if (existingProduct != null)
+            {
+                existingProduct.Title = product.Title;
+                existingProduct.Description = product.Description;
+                existingProduct.ISBN = product.ISBN;
+                existingProduct.CategoryId = product.CategoryId;
+                existingProduct.Price = product.Price;
+                existingProduct.Price50 = product.Price50;
+                existingProduct.Price100 = product.Price100;
+                existingProduct.ListPrice = product.ListPrice;
+                if (existingProduct.ImageUrl != null)
+                {
+                    existingProduct.ImageUrl = product.ImageUrl;
+                }
+            }
         }
     }
 }
