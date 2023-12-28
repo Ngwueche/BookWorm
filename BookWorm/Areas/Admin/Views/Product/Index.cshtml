@@ -14,65 +14,20 @@
                 <a asp-controller="product" asp-action="upsert" class="btn btn-dark"> <i class="bi bi-plus-circle"></i> Add Product</a>
             </div>
         </div>
-        <table asp- class="table text-center table-bordered table-striped">
+        <table id="tblData" asp- class="table text-center table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>
-                         Title
-                    </th>
-                    <th>
-                        Author
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        ISBN
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th>
-                        List Price
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th>
-                        Price 50+
-                    </th>
-                    <th>
-                        Price 100+
-                    </th>
+                    <th> Title </th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>ISBN</th>
+                    <th>Price</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr>
-                        <td>@obj.Title </td>
-                        <td>@obj.Author</td>
-                        <td>@obj.Description</td>
-                        <td>@obj.ISBN.ToUpper()</td>
-                        <td>@obj.Category.Name</td>
-                        <td>@obj.ListPrice</td>
-                        <td>@obj.Price</td>
-                        <td>@obj.Price50</td>
-                        <td>@obj.Price100</td>
-                        <td>
-                            <div class="w-65 btn-group" role="group">
-                                <a asp-controller="product" asp-action="upsert" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
-                                    <i class="bi bi-pencil-square"></i>Edit
-                                </a>
-                                <a asp-controller="product" asp-action="delete" asp-route-Id="@obj.Id" class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash"></i>Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
         </table>
     </div>
 </div>
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}
