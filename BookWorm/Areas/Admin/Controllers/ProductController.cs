@@ -70,7 +70,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     //Delete an existing image if a new one is to be updated
                     if (!string.IsNullOrEmpty(productVM.ImageUrl))
                     {
-                        var oldImagePath = Path.Combine(wwwRootPath, productVM.ImageUrl.Trim('\\'));
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.ImageUrl.TrimStart('\\'));
                         if (System.IO.File.Exists(oldImagePath))
                         {
                             System.IO.File.Delete(oldImagePath);
@@ -161,16 +161,19 @@ namespace BookWorm.API.Areas.Admin.Controllers
             var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
             return Json(new { data = products });
         }
-
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
             var product = _unitOfWork.productRepository.Get(u => u.Id == id);
             if (product == null) return Json(new { success = false, message = "Error Deleting this product" });
             //Delete an existing image if a new one is to be updated
-            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ImageUrl.Trim('\\'));
-            if (System.IO.File.Exists(oldImagePath))
+            if (!string.IsNullOrEmpty(product.ImageUrl))
             {
-                System.IO.File.Delete(oldImagePath);
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ImageUrl.TrimStart('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
             }
             _unitOfWork.productRepository.Remove(product);
             _unitOfWork.Save();
