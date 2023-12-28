@@ -137,21 +137,45 @@ namespace BookWorm.API.Areas.Admin.Controllers
 
             return View(productVM);
         }
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null || id == 0) return NotFound();
+        //    var getProduct = _unitOfWork.productRepository.Get(u => u.Id == id);
+        //    if (getProduct == null) return NotFound();
+        //    return View(getProduct);
+        //}
+        //[HttpPost]
+        //public IActionResult Delete(Product product)
+        //{
+        //    _unitOfWork.productRepository.Remove(product);
+        //    _unitOfWork.Save();
+        //    TempData["Success"] = "Item deleted successully";
+        //    return RedirectToAction("Index");
+        //}
+
+        #region API CALLS
         [HttpGet]
+        public IActionResult GetAll()
+        {
+            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
+            return Json(new { data = products });
+        }
+
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0) return NotFound();
-            var getProduct = _unitOfWork.productRepository.Get(u => u.Id == id);
-            if (getProduct == null) return NotFound();
-            return View(getProduct);
-        }
-        [HttpPost]
-        public IActionResult Delete(Product product)
-        {
+            var product = _unitOfWork.productRepository.Get(u => u.Id == id);
+            if (product == null) return Json(new { success = false, message = "Error Deleting this product" });
+            //Delete an existing image if a new one is to be updated
+            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ImageUrl.Trim('\\'));
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
             _unitOfWork.productRepository.Remove(product);
             _unitOfWork.Save();
-            TempData["Success"] = "Item deleted successully";
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Product deleted successfully" });
         }
+        #endregion
     }
 }
