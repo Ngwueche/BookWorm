@@ -1,3 +1,4 @@
+using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,16 +9,23 @@ namespace BookWorm.API.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-
-            return View();
+            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
+            return View(products);
+        }
+        public IActionResult Details(int? productId)
+        {
+            Product product = _unitOfWork.productRepository.Get(u => u.Id == productId, includeProperties: "Category");
+            return View(product);
         }
 
         public IActionResult Privacy()

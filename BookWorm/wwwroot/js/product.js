@@ -9,10 +9,10 @@ function loadDataTable() {
         "ajax": { url: '/admin/product/getall'},
         "columns": [
             {data:'title', "width":"20%"},
-            {data:'isbn', "width":"15%"},
             {data:'author', "width":"15%"},
-            {data:'price', "width":"15%"},
             { data: 'category.name', "width": "15%" },
+            {data:'isbn', "width":"15%"},
+            {data:'price', "width":"15%"},
             {
                 data: 'id',
                 "render": function (data) {
