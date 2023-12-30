@@ -1,7 +1,4 @@
-﻿
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -35,7 +32,7 @@
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin">Category</a>
                         </li> *@
-                        @if (User.IsInRole(SD.Role_Customer))
+                        @if(User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown">
