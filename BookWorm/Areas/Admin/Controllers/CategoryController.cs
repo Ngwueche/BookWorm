@@ -1,6 +1,6 @@
-﻿using BookWorm.DataAccess.Data.DTOs;
-using BookWorm.DataAccess.Repositories.IRepositories;
+﻿using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
+using BookWorm.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWorm.API.Areas.Admin.Controllers
@@ -24,7 +24,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateRequestDTO category)
+        public IActionResult Create(CategoryVM category)
         {
             if (ModelState.IsValid)
             {
