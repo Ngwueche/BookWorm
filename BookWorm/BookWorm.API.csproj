@@ -6,6 +6,394 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\Admin\Views\Company\wwwroot\css\site.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\favicon.ico" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\111ad32f-a286-46a6-9fd2-40f572a703d8.png" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\2c997588-9331-4c08-8a17-a0bcef39528d.png" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\4793d747-af11-4270-8eb7-8af945b04ce3.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\4ca6954e-c9a0-4535-aa2e-b3167d7a13e1.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\4de81b3c-3455-473e-9906-a65fa68483fe.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\591b7cfa-3e07-4f9d-bb2d-fa0b0669b112.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\5d0717e4-5712-4c8f-afc8-e34bf244517e.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\64d53f1d-0ac5-4002-928e-aeca0c14c07f.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\80204e01-5ffa-4b61-848c-915925e5b7e4.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\b83218ac-7a00-4fc7-8eec-ab8427d72303.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\d07b4fd8-8416-416c-b24a-73361a65a455.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\d2595556-3e65-456b-8d8b-a470dabac285.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\images\product\e785b519-1591-4943-8f1c-416717baf6d4.jpg" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\js\company.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\js\product.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\js\site.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\LICENSE" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Remove="Areas\Admin\Views\Company\wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\css\site.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\111ad32f-a286-46a6-9fd2-40f572a703d8.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\2c997588-9331-4c08-8a17-a0bcef39528d.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\4793d747-af11-4270-8eb7-8af945b04ce3.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\4ca6954e-c9a0-4535-aa2e-b3167d7a13e1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\4de81b3c-3455-473e-9906-a65fa68483fe.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\591b7cfa-3e07-4f9d-bb2d-fa0b0669b112.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\5d0717e4-5712-4c8f-afc8-e34bf244517e.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\64d53f1d-0ac5-4002-928e-aeca0c14c07f.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\80204e01-5ffa-4b61-848c-915925e5b7e4.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\b83218ac-7a00-4fc7-8eec-ab8427d72303.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\d07b4fd8-8416-416c-b24a-73361a65a455.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\d2595556-3e65-456b-8d8b-a470dabac285.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\images\product\e785b519-1591-4943-8f1c-416717baf6d4.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\js\company.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\js\product.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\js\site.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\bootstrap\LICENSE">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\additional-methods.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\jquery.validate.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery-validation\LICENSE.md">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery\dist\jquery.min.map">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\Company\wwwroot\lib\jquery\LICENSE.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
@@ -30,7 +418,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 

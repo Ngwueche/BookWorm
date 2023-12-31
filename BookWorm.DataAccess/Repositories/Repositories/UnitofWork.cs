@@ -7,14 +7,15 @@ namespace BookWorm.DataAccess.Repositories.Repositories
     {
         private readonly ApplicationDbContext _context;
         public ICategoryRepository categoryRepository { get; private set; }
-
         public IProductRepository productRepository { get; private set; }
+        public ICompanyRepository companyRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             categoryRepository = new CategoryRepository(context);
             productRepository = new ProductRepository(context);
+            companyRepository = new CompanyRepository(context);
         }
 
         public void Save()
