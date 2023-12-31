@@ -1,15 +1,19 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookWorm.DataAccess.Data.DTOs
+namespace BookWorm.Models.ViewModels
 {
-    public class UpdateRequestDTO
+    public class CategoryVM
     {
+        [Key]
+        public int Id { get; set; }
         [Required]
+        [Length(3, 30)]
+        [DisplayName("Name")]
         public string Name { get; set; }
         [Required]
         [DisplayName("Display Order")]
-        [Range(1, 100, ErrorMessage = "Value must be between 1 and 100")]
+        [Range(1, 100)]
         public int DisplayOrder { get; set; }
     }
 }

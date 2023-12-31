@@ -11,6 +11,7 @@ namespace BookWorm.DataAccess.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        public DbSet<ShoppingCartVM> ShoppingCarts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> AppUsers { get; set; }
