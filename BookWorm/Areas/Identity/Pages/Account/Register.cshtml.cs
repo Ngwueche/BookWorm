@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
 using BookWorm.Utility;
 using Microsoft.AspNetCore.Authentication;
@@ -27,6 +28,7 @@ namespace BookWorm.API.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -34,8 +36,10 @@ namespace BookWorm.API.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _roleManager = roleManager; //added
             _userStore = userStore;
@@ -106,6 +110,9 @@ namespace BookWorm.API.Areas.Identity.Pages.Account
             [Required]
             public string LastName { get; set; }
             public string PhoneNumber { get; set; }
+            public int? CompanyId { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -122,7 +129,12 @@ namespace BookWorm.API.Areas.Identity.Pages.Account
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
                 {
                     Text = i,
-                    Value = i.ToString()
+                    Value = i
+                }),
+                CompanyList = _unitOfWork.companyRepository.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
                 })
             };
             ReturnUrl = returnUrl;
@@ -141,6 +153,11 @@ namespace BookWorm.API.Areas.Identity.Pages.Account
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.PhoneNumber = Input.PhoneNumber;
+
+                if (Input.Role == SD.Role_Company)
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

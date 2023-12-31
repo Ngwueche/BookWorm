@@ -1,4 +1,5 @@
 ﻿using BookWorm.Models;
+using BookWorm.Models.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace BookWorm.DataAccess.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> AppUsers { get; set; }
+        public DbSet<CompanyUser> Companies { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,6 +27,12 @@ namespace BookWorm.DataAccess.Data
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 },
                 new Category { Id = 4, Name = "Horror", DisplayOrder = 4 },
                 new Category { Id = 5, Name = "Romance", DisplayOrder = 5 });
+
+            modelBuilder.Entity<CompanyUser>().HasData(
+                new CompanyUser { Id = 1, Name = "FuxionX", Email = "Fusin@fh.com", City = "Tech City", StreetAddress = "23 ajug ayca Lagos", State = "Lagos", PostalCode = "265768728", PhoneNumber = "76546e5763" },
+                new CompanyUser { Id = 2, Name = "SDX", Email = "SDX@fh.com", City = "Devils City", StreetAddress = "23 Ddevi ayca Lagos", State = "Lagos", PostalCode = "265768728", PhoneNumber = "76546e5763" },
+                new CompanyUser { Id = 3, Name = "AgridivX", Email = "Agridiv@fh.com", City = "Agric City", StreetAddress = "23 rds ayca Lagos", State = "Enugu", PostalCode = "265768728", PhoneNumber = "76546e5763" },
+                new CompanyUser { Id = 4, Name = "MechWeldX", Email = "Mech@fh.com", City = "Mech City", StreetAddress = "23 yefv ayca Lagos", State = "Enugu", PostalCode = "265768728", PhoneNumber = "76546e5763" });
 
             modelBuilder.Entity<Product>().HasData(
                 new Product

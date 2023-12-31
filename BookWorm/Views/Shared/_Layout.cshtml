@@ -35,8 +35,8 @@
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin">Category</a>
                         </li> *@
-                        @if (User.IsInRole(SD.Role_Customer))
-                        {
+                       @*  @if (User.IsInRole(SD.Role_Customer))
+                        { *@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown">
                                     Content Management
@@ -44,12 +44,13 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item  text-dark" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                     <a class="dropdown-item  text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                    <a class="dropdown-item  text-dark" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                     @*  <a class="dropdown-item" href="#">Another action</a> *@
                                     <div class="dropdown-divider"></div>
                                     @* <a class="dropdown-item" href="#">Something else here</a> *@
                                 </div>
                             </li>
-                        }
+                       @*  } *@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
