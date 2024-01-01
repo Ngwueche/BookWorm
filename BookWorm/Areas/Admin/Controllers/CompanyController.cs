@@ -20,7 +20,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var getCompanies = _unitOfWork.companyRepository.GetAll();
+            var getCompanies = _unitOfWork.CompanyRepository.GetAll();
             return View(getCompanies);
         }
 
@@ -33,7 +33,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
             else
             {
                 //update
-                var company = _unitOfWork.companyRepository.Get(u => u.Id == id);
+                var company = _unitOfWork.CompanyRepository.Get(u => u.Id == id);
                 if (company == null) return NotFound();
                 companyVM.Name = company.Name;
                 companyVM.StreetAddress = company.StreetAddress;
@@ -66,7 +66,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                 if (companyVM.Id != 0)
                 {
                     // If it's an update, retrieve the existing company from the database
-                    var existingCompany = _unitOfWork.companyRepository.Get(u => u.Id == companyVM.Id);
+                    var existingCompany = _unitOfWork.CompanyRepository.Get(u => u.Id == companyVM.Id);
 
                     // Check if the existing company is found
                     if (existingCompany == null) return NotFound();
@@ -79,12 +79,12 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     existingCompany.PostalCode = companyVM.PostalCode;
 
 
-                    _unitOfWork.companyRepository.Update(existingCompany);
+                    _unitOfWork.CompanyRepository.Update(existingCompany);
                 }
                 else
                 {
                     // It's a new company, add it to the repository
-                    _unitOfWork.companyRepository.Add(newCompany);
+                    _unitOfWork.CompanyRepository.Add(newCompany);
                 }
                 _unitOfWork.Save();
                 TempData["Success"] = "Company Saved Successfully";
@@ -97,16 +97,16 @@ namespace BookWorm.API.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var companies = _unitOfWork.companyRepository.GetAll();
+            var companies = _unitOfWork.CompanyRepository.GetAll();
             return Json(new { data = companies });
         }
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var company = _unitOfWork.companyRepository.Get(u => u.Id == id);
+            var company = _unitOfWork.CompanyRepository.Get(u => u.Id == id);
             if (company == null) return Json(new { success = false, message = "Error Deleting this company" });
 
-            _unitOfWork.companyRepository.Remove(company);
+            _unitOfWork.CompanyRepository.Remove(company);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Product deleted successfully" });
         }

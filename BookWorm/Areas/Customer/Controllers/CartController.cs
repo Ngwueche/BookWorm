@@ -24,50 +24,71 @@ public class CartController : Controller
 
         CartVM = new()
         {
-            ShoppingCartList = _unitOfWork.shoppingCartRepository.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product")
+            ShoppingCartList = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product"),
+            OrderHeader = new()
         };
         foreach (var cart in CartVM.ShoppingCartList)
         {
             cart.Price = GetPriceBasedOnQuantity(cart);
-            CartVM.OrderTotal += (cart.Price * cart.Count);
+            CartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
         }
         return View(CartVM);
     }
     public IActionResult Plus(int cartId)
     {
-        var cartFromDb = _unitOfWork.shoppingCartRepository.Get(u => u.Id == cartId);
+        var cartFromDb = _unitOfWork.ShoppingCartRepository.Get(u => u.Id == cartId);
         cartFromDb.Count += 1;
-        _unitOfWork.shoppingCartRepository.Update(cartFromDb);
+        _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
         _unitOfWork.Save();
         return RedirectToAction(nameof(Index));
     }
     public IActionResult Minus(int cartId)
     {
-        var cartFromDb = _unitOfWork.shoppingCartRepository.Get(u => u.Id == cartId);
+        var cartFromDb = _unitOfWork.ShoppingCartRepository.Get(u => u.Id == cartId);
         if (cartFromDb.Count <= 1)
         {
             //remove from cart
-            _unitOfWork.shoppingCartRepository.Remove(cartFromDb);
+            _unitOfWork.ShoppingCartRepository.Remove(cartFromDb);
         }
         else
         {
             cartFromDb.Count -= 1;
-            _unitOfWork.shoppingCartRepository.Update(cartFromDb);
+            _unitOfWork.ShoppingCartRepository.Update(cartFromDb);
         }
         _unitOfWork.Save();
         return RedirectToAction(nameof(Index));
     }
     public IActionResult Delete(int cartId)
     {
-        var cartFromDb = _unitOfWork.shoppingCartRepository.Get(u => u.Id == cartId);
-        _unitOfWork.shoppingCartRepository.Remove(cartFromDb);
+        var cartFromDb = _unitOfWork.ShoppingCartRepository.Get(u => u.Id == cartId);
+        _unitOfWork.ShoppingCartRepository.Remove(cartFromDb);
         _unitOfWork.Save();
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Summary()
     {
-        return View();
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        CartVM = new()
+        {
+            ShoppingCartList = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product"),
+            OrderHeader = new()
+        };
+        CartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUserRepository.Get(u => u.Id == userId);
+        CartVM.OrderHeader.Name = CartVM.OrderHeader.ApplicationUser.FirstName.ToString() + " " + CartVM.OrderHeader.ApplicationUser.LastName.ToString();
+        CartVM.OrderHeader.PhoneNumber = CartVM.OrderHeader.ApplicationUser.PhoneNumber;
+        CartVM.OrderHeader.StreetAddress = CartVM.OrderHeader.ApplicationUser.StreetAddress;
+        CartVM.OrderHeader.City = CartVM.OrderHeader.ApplicationUser.City;
+        CartVM.OrderHeader.State = CartVM.OrderHeader.ApplicationUser.State;
+        CartVM.OrderHeader.PostalCode = CartVM.OrderHeader.ApplicationUser.PostalCode;
+        foreach (var cart in CartVM.ShoppingCartList)
+        {
+            cart.Price = GetPriceBasedOnQuantity(cart);
+            CartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+        }
+        return View(CartVM);
     }
 
     private double GetPriceBasedOnQuantity(ShoppingCartVM shoppingCartVM)

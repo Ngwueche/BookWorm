@@ -20,7 +20,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         //Read
         public IActionResult Index()
         {
-            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
+            var products = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
 
             return View(products);
         }
@@ -29,7 +29,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         {
             ProductVM productVM = new()
             {
-                CategoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+                CategoryList = _unitOfWork.CategoryRepository.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
@@ -41,7 +41,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
             else
             {
                 //update
-                var product = _unitOfWork.productRepository.Get(u => u.Id == id);
+                var product = _unitOfWork.ProductRepository.Get(u => u.Id == id);
                 if (product == null) return NotFound();
                 productVM.Id = product.Id;
                 productVM.Title = product.Title;
@@ -102,7 +102,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                 if (productVM.Id != 0)
                 {
                     // If it's an update, retrieve the existing product from the database
-                    var existingProduct = _unitOfWork.productRepository.Get(u => u.Id == productVM.Id);
+                    var existingProduct = _unitOfWork.ProductRepository.Get(u => u.Id == productVM.Id);
 
                     // Check if the existing product is found
                     if (existingProduct == null) return NotFound();
@@ -119,18 +119,18 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     existingProduct.CategoryId = productVM.CategoryId;
                     existingProduct.ImageUrl = productVM.ImageUrl;
 
-                    _unitOfWork.productRepository.Update(existingProduct);
+                    _unitOfWork.ProductRepository.Update(existingProduct);
                 }
                 else
                 {
                     // It's a new product, add it to the repository
-                    _unitOfWork.productRepository.Add(newProduct);
+                    _unitOfWork.ProductRepository.Add(newProduct);
                 }
                 _unitOfWork.Save();
                 TempData["Success"] = "Item Saved Successfully";
                 return RedirectToAction("Index");
             }
-            productVM.CategoryList = _unitOfWork.categoryRepository.GetAll().Select(u => new SelectListItem
+            productVM.CategoryList = _unitOfWork.CategoryRepository.GetAll().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
@@ -142,14 +142,14 @@ namespace BookWorm.API.Areas.Admin.Controllers
         //public IActionResult Delete(int? id)
         //{
         //    if (id == null || id == 0) return NotFound();
-        //    var getProduct = _unitOfWork.productRepository.Get(u => u.Id == id);
+        //    var getProduct = _unitOfWork.ProductRepository.Get(u => u.Id == id);
         //    if (getProduct == null) return NotFound();
         //    return View(getProduct);
         //}
         //[HttpPost]
         //public IActionResult Delete(Product product)
         //{
-        //    _unitOfWork.productRepository.Remove(product);
+        //    _unitOfWork.ProductRepository.Remove(product);
         //    _unitOfWork.Save();
         //    TempData["Success"] = "Item deleted successully";
         //    return RedirectToAction("Index");
@@ -159,13 +159,13 @@ namespace BookWorm.API.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
+            var products = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
             return Json(new { data = products });
         }
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var product = _unitOfWork.productRepository.Get(u => u.Id == id);
+            var product = _unitOfWork.ProductRepository.Get(u => u.Id == id);
             if (product == null) return Json(new { success = false, message = "Error Deleting this product" });
             //Delete an existing image if a new one is to be updated
             if (!string.IsNullOrEmpty(product.ImageUrl))
@@ -176,7 +176,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     System.IO.File.Delete(oldImagePath);
                 }
             }
-            _unitOfWork.productRepository.Remove(product);
+            _unitOfWork.ProductRepository.Remove(product);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Product deleted successfully" });
         }

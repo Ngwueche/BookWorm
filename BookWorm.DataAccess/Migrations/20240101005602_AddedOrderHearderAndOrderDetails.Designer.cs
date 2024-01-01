@@ -4,6 +4,7 @@ using BookWorm.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookWorm.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240101005602_AddedOrderHearderAndOrderDetails")]
+    partial class AddedOrderHearderAndOrderDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,47 +57,47 @@ namespace BookWorm.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3802),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3806),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8877),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8883),
                             DisplayOrder = 1,
                             Name = "Fiction",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3805)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8882)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3810),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3811),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8888),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8889),
                             DisplayOrder = 2,
                             Name = "SciFic",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3811)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8889)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3813),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3813),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8891),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8892),
                             DisplayOrder = 3,
                             Name = "History",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3813)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8892)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3815),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3816),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8894),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8894),
                             DisplayOrder = 4,
                             Name = "Horror",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3815)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8894)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3817),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3818),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8896),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8897),
                             DisplayOrder = 5,
                             Name = "Romance",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(3817)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(8896)
                         });
                 });
 
@@ -342,8 +345,8 @@ namespace BookWorm.DataAccess.Migrations
                             Id = 1,
                             Author = "Billy Spark",
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4101),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4102),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9716),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9718),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
                             ImageUrl = "",
@@ -352,15 +355,15 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 80.0,
                             Price50 = 85.0,
                             Title = "Fortune of Time",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4101)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9718)
                         },
                         new
                         {
                             Id = 2,
                             Author = "Nancy Hoover",
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4110),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4111),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9727),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9728),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
                             ImageUrl = "",
@@ -369,15 +372,15 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 20.0,
                             Price50 = 25.0,
                             Title = "Dark Skies",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4110)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9727)
                         },
                         new
                         {
                             Id = 3,
                             Author = "Julian Button",
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4114),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4115),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9732),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9733),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
                             ImageUrl = "",
@@ -386,15 +389,15 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 35.0,
                             Price50 = 40.0,
                             Title = "Vanish in the Sunset",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4114)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9733)
                         },
                         new
                         {
                             Id = 4,
                             Author = "Abby Muscles",
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4117),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4118),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9737),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9738),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
                             ImageUrl = "",
@@ -403,15 +406,15 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 55.0,
                             Price50 = 60.0,
                             Title = "Cotton Candy",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4117)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9738)
                         },
                         new
                         {
                             Id = 5,
                             Author = "Ron Parker",
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4120),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4121),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9741),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9742),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut .\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
                             ImageUrl = "",
@@ -420,15 +423,15 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 20.0,
                             Price50 = 25.0,
                             Title = "Rock in the Ocean",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4120)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9742)
                         },
                         new
                         {
                             Id = 6,
                             Author = "Laura Phantom",
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4123),
-                            DeletedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4124),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9745),
+                            DeletedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9746),
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "FOT000000001",
                             ImageUrl = "",
@@ -437,7 +440,7 @@ namespace BookWorm.DataAccess.Migrations
                             Price100 = 20.0,
                             Price50 = 22.0,
                             Title = "Leaves and Wonders",
-                            UpdatedAt = new DateTime(2024, 1, 1, 9, 38, 55, 651, DateTimeKind.Utc).AddTicks(4124)
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 55, 59, 767, DateTimeKind.Utc).AddTicks(9746)
                         });
                 });
 
@@ -687,9 +690,6 @@ namespace BookWorm.DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
@@ -697,15 +697,6 @@ namespace BookWorm.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("CompanyId");

@@ -6,20 +6,24 @@ namespace BookWorm.DataAccess.Repositories.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public ICategoryRepository categoryRepository { get; private set; }
-        public IProductRepository productRepository { get; private set; }
-        public ICompanyRepository companyRepository { get; private set; }
-        public IShoppingCartRepository shoppingCartRepository { get; private set; }
-        public IApplicationUserRepository applicationUserRepository { get; private set; }
+        public ICategoryRepository CategoryRepository { get; private set; }
+        public IProductRepository ProductRepository { get; private set; }
+        public ICompanyRepository CompanyRepository { get; private set; }
+        public IShoppingCartRepository ShoppingCartRepository { get; private set; }
+        public IApplicationUserRepository ApplicationUserRepository { get; private set; }
+        public IOrderHeaderRepository OrderHeaderRepository { get; private set; }
+        public IOrderDetailRepository OrderDetailRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            categoryRepository = new CategoryRepository(context);
-            productRepository = new ProductRepository(context);
-            companyRepository = new CompanyRepository(context);
-            shoppingCartRepository = new ShoppingCartRepository(context);
-            applicationUserRepository = new ApplicationUserRepository(context);
+            CategoryRepository = new CategoryRepository(context);
+            ProductRepository = new ProductRepository(context);
+            CompanyRepository = new CompanyRepository(context);
+            ShoppingCartRepository = new ShoppingCartRepository(context);
+            ApplicationUserRepository = new ApplicationUserRepository(context);
+            OrderDetailRepository = new OrderDetailRepository(context);
+            OrderHeaderRepository = new OrderHeaderRepository(context);
         }
 
         public void Save()

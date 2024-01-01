@@ -16,6 +16,9 @@ namespace BookWorm.DataAccess.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> AppUsers { get; set; }
         public DbSet<CompanyUser> Companies { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
