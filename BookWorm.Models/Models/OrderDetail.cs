@@ -12,7 +12,7 @@ namespace BookWorm.Models.Models
         [ValidateNever]
         public OrderHeader OrderHeader { get; set; }
         [Required]
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]
         [ValidateNever]
         public Product Product { get; set; }
