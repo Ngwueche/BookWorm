@@ -21,14 +21,14 @@ namespace BookWorm.API.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            var products = _unitOfWork.productRepository.GetAll(includeProperties: "Category");
+            var products = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
             return View(products);
         }
         public IActionResult Details(int? productId)
         {
             var cart = new ShoppingCartVM()
             {
-                Product = _unitOfWork.productRepository.Get(u => u.Id == productId, includeProperties: "Category"),
+                Product = _unitOfWork.ProductRepository.Get(u => u.Id == productId, includeProperties: "Category"),
                 Count = 1,
                 ProductId = productId
             };
@@ -43,17 +43,17 @@ namespace BookWorm.API.Areas.Customer.Controllers
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCartVM.ApplicationUserId = userId;
 
-            ShoppingCartVM cartFromDB = _unitOfWork.shoppingCartRepository.Get(u => u.ApplicationUserId == userId && u.ProductId == shoppingCartVM.ProductId);
+            ShoppingCartVM cartFromDB = _unitOfWork.ShoppingCartRepository.Get(u => u.ApplicationUserId == userId && u.ProductId == shoppingCartVM.ProductId);
             if (cartFromDB != null)
             {
                 //Cart already exists
                 cartFromDB.Count += shoppingCartVM.Count;
-                _unitOfWork.shoppingCartRepository.Update(cartFromDB);
+                _unitOfWork.ShoppingCartRepository.Update(cartFromDB);
             }
             else
             {
                 //Cart does not exist
-                _unitOfWork.shoppingCartRepository.Add(shoppingCartVM);
+                _unitOfWork.ShoppingCartRepository.Add(shoppingCartVM);
             }
             TempData["success"] = "Cart Updated successfully";
             _unitOfWork.Save();

@@ -2,11 +2,13 @@
 {
     public interface IUnitOfWork
     {
-        ICategoryRepository categoryRepository { get; }
-        IProductRepository productRepository { get; }
-        ICompanyRepository companyRepository { get; }
-        IShoppingCartRepository shoppingCartRepository { get; }
-        IApplicationUserRepository applicationUserRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
+        IProductRepository ProductRepository { get; }
+        ICompanyRepository CompanyRepository { get; }
+        IShoppingCartRepository ShoppingCartRepository { get; }
+        IApplicationUserRepository ApplicationUserRepository { get; }
+        IOrderDetailRepository OrderDetailRepository { get; }
+        IOrderHeaderRepository OrderHeaderRepository { get; }
         void Save();
     }
 }

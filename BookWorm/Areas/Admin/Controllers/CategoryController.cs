@@ -16,7 +16,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var category = _unitOfWork.categoryRepository.GetAll();
+            var category = _unitOfWork.CategoryRepository.GetAll();
             return View(category);
         }
         public IActionResult Create()
@@ -34,7 +34,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
                     DisplayOrder = category.DisplayOrder,
                 };
 
-                _unitOfWork.categoryRepository.Add(newValues);
+                _unitOfWork.CategoryRepository.Add(newValues);
                 _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
@@ -45,7 +45,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0) return NotFound();
-            var category = _unitOfWork.categoryRepository.Get(u => u.Id == id);
+            var category = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
             if (category == null) return NotFound();
             return View(category);
         }
@@ -54,7 +54,7 @@ namespace BookWorm.API.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.categoryRepository.Update(category);
+                _unitOfWork.CategoryRepository.Update(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Edited successfully";
                 return RedirectToAction("Index");
@@ -65,14 +65,14 @@ namespace BookWorm.API.Areas.Admin.Controllers
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0) return NotFound();
-            var category = _unitOfWork.categoryRepository.Get(u => u.Id == id);
+            var category = _unitOfWork.CategoryRepository.Get(u => u.Id == id);
             if (category == null) return NotFound();
             return View(category);
         }
         [HttpPost]
         public IActionResult Delete(Category category)
         {
-            _unitOfWork.categoryRepository.Remove(category);
+            _unitOfWork.CategoryRepository.Remove(category);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
