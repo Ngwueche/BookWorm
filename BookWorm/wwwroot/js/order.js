@@ -9,7 +9,7 @@ function loadDataTable() {
         "ajax": { url: '/admin/order/getall'},
         "columns": [
                 { data: 'id', "width": "10%" },
-                { data: 'name', "width": "15%" },
+                { data: 'firstName', "width": "15%" },
                 { data: 'phoneNumber', "width": "15%" },
                 { data: 'applicationUser.email', "width": "25%" },
                 { data: 'orderStatus', "width": "15%" },
@@ -21,7 +21,7 @@ function loadDataTable() {
                         <a href="/admin/order/datils?orderId=${data}" class="btn btn-primary mx-2"></a>
                     </div>`
                 },
-                "width" : "25"
+                "width" : "15"
             }
         ]
     });

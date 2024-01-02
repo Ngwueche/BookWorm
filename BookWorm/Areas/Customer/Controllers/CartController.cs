@@ -82,7 +82,8 @@ public class CartController : Controller
         };
         CartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUserRepository.Get(u => u.Id == userId);
 
-        CartVM.OrderHeader.Name = CartVM.OrderHeader.ApplicationUser.FirstName;
+        CartVM.OrderHeader.FirstName = CartVM.OrderHeader.ApplicationUser.FirstName;
+        CartVM.OrderHeader.LastName = CartVM.OrderHeader.ApplicationUser.LastName;
         CartVM.OrderHeader.PhoneNumber = CartVM.OrderHeader.ApplicationUser.PhoneNumber;
         CartVM.OrderHeader.StreetAddress = CartVM.OrderHeader.ApplicationUser.StreetAddress;
         CartVM.OrderHeader.City = CartVM.OrderHeader.ApplicationUser.City;

@@ -2,7 +2,7 @@
 using BookWorm.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookWorm.API.Areas.Customer.Controllers
+namespace BookWorm.API.Areas.Admin.Controllers
 {
     [Area("admin")]
     public class OrderController : Controller
