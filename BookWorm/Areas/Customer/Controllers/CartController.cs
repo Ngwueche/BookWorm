@@ -5,6 +5,7 @@ using BookWorm.Models.ViewModels;
 using BookWorm.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace BookWorm.API.Areas.Customer.Controllers;
@@ -142,14 +143,61 @@ public class CartController : Controller
         if (applicationUser.CompanyId.GetValueOrDefault() == 0)
         {
             //Ordinary customer && should pay immediately
-            //stripe payment
-
+            //stripe payment GateWay integration
+            string domain = "https://localhost:7174/";
+            var options = new Stripe.Checkout.SessionCreateOptions
+            {
+                SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={CartVM.OrderHeader.Id}",
+                CancelUrl = domain + $"customer/cart/index",
+                LineItems = new List<Stripe.Checkout.SessionLineItemOptions>(),
+                Mode = "payment",
+            };
+            foreach (var item in CartVM.ShoppingCartList)
+            {
+                SessionLineItemOptions sessionLineItemOptions = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        UnitAmount = (long)item.Price * 100,
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = item.Product.Title,
+                        }
+                    },
+                    Quantity = item.Count
+                };
+                options.LineItems.Add(sessionLineItemOptions);
+            }
+            var service = new Stripe.Checkout.SessionService();
+            Session session = service.Create(options);
+            _unitOfWork.OrderHeaderRepository.UpdateStripePaymentId(CartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+            _unitOfWork.Save();
+            Response.Headers.Location = session.Url;
+            return new StatusCodeResult(303);
         }
         return RedirectToAction(nameof(OrderConfirmation), new { id = CartVM.OrderHeader.Id });
     }
 
-    public IActionResult OrderConfirmation(int? id)
+    public IActionResult OrderConfirmation(int id)
     {
+        OrderHeader orderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == id, includeProperties: "ApplicationUser");
+        if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
+        {
+            //This checks for customer payment
+            SessionService sessionService = new SessionService();
+            Session session = sessionService.Get(orderHeader.SessionId);
+            if (session.PaymentStatus.Equals("paid", StringComparison.CurrentCultureIgnoreCase))
+            {
+                _unitOfWork.OrderHeaderRepository.UpdateStripePaymentId(id, session.Id, session.PaymentIntentId);
+                _unitOfWork.OrderHeaderRepository.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+                _unitOfWork.Save();
+            }
+        };
+        List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.PaymentIntentId).ToList();
+        _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
+        _unitOfWork.Save();
+
         return View(id);
     }
     private double GetPriceBasedOnQuantity(ShoppingCartVM shoppingCartVM)
