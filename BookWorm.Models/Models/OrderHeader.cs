@@ -23,7 +23,6 @@ namespace BookWorm.Models.Models
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
 
-
         [Required]
         public string PhoneNumber { get; set; }
         [Required]
