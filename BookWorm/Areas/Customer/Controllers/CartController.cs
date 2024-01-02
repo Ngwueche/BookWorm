@@ -1,6 +1,8 @@
 ﻿using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
+using BookWorm.Models.Models;
 using BookWorm.Models.ViewModels;
+using BookWorm.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,6 +13,7 @@ namespace BookWorm.API.Areas.Customer.Controllers;
 public class CartController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    [BindProperty]
     public CartVM CartVM { get; set; }
     public CartController(IUnitOfWork unitOfWork)
     {
@@ -90,7 +93,65 @@ public class CartController : Controller
         }
         return View(CartVM);
     }
+    [HttpPost]
+    [ActionName("Summary")]
+    public IActionResult SummaryPost()
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+        CartVM.ShoppingCartList = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product");
+        CartVM.OrderHeader.OrderDate = System.DateTime.Now;
+        CartVM.OrderHeader.ApplicationUserId = userId;
+
+        ApplicationUser applicationUser = _unitOfWork.ApplicationUserRepository.Get(u => u.Id == userId);
+
+        if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+        {
+            //Ordinary customer && should pay immediately
+            CartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
+            CartVM.OrderHeader.OrderStatus = SD.StatusPending;
+        }
+        else
+        {
+            //Company account && payment comes after 30days
+            CartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
+            CartVM.OrderHeader.OrderStatus = SD.StatusApproved;
+        }
+        foreach (var cart in CartVM.ShoppingCartList)
+        {
+            cart.Price = GetPriceBasedOnQuantity(cart);
+            CartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+        }
+        _unitOfWork.OrderHeaderRepository.Add(CartVM.OrderHeader);
+        _unitOfWork.Save();
+
+        //Process OrderDetail
+        foreach (var cart in CartVM.ShoppingCartList)
+        {
+            OrderDetail orderDetail = new()
+            {
+                ProductId = cart.ProductId,
+                OrderHeaderId = CartVM.OrderHeader.Id,
+                Price = cart.Price,
+                Count = cart.Count,
+            };
+            _unitOfWork.OrderDetailRepository.Add(orderDetail);
+            _unitOfWork.Save();
+        }
+        if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+        {
+            //Ordinary customer && should pay immediately
+            //stripe payment
+
+        }
+        return RedirectToAction(nameof(OrderConfirmation), new { id = CartVM.OrderHeader.Id });
+    }
+
+    public IActionResult OrderConfirmation(int? id)
+    {
+        return View(id);
+    }
     private double GetPriceBasedOnQuantity(ShoppingCartVM shoppingCartVM)
     {
         if (shoppingCartVM.Count <= 50)
