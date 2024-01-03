@@ -25,7 +25,7 @@
                                     <span class="text-info">Shipping Details:</span>
                                 </h4>
                             </div>
-                            <div class="row my-1">
+                            @* <div class="row my-1">
                                 <div class="col-3">
                                     <label>First Name</label>
                                 </div>
@@ -33,14 +33,14 @@
                                     <input asp-for="OrderHeader.FirstName" class="form-control" />
                                     <span asp-validation-for="OrderHeader.FirstName" class="text-danger"></span>
                                 </div>
-                            </div>
+                            </div> *@
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Last Name</label>
+                                    <label>Name</label>
                                 </div>
                                 <div class="col-9">
-                                    <input asp-for="OrderHeader.LastName" class="form-control" />
-                                    <span asp-validation-for="OrderHeader.LastName" class="text-danger"></span>
+                                    <input asp-for="OrderHeader.Name" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
