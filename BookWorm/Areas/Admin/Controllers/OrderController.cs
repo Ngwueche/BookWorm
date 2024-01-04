@@ -2,6 +2,7 @@
 using BookWorm.Models.Models;
 using BookWorm.Models.ViewModels;
 using BookWorm.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWorm.API.Areas.Admin.Controllers
@@ -10,6 +11,8 @@ namespace BookWorm.API.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
+        public OrderVM OrderVM { get; set; }
         public OrderController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -19,6 +22,17 @@ namespace BookWorm.API.Areas.Admin.Controllers
             return View();
         }
         public IActionResult Details(int orderId)
+        {
+            OrderVM = new()
+            {
+                OrderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
+                OrderDetail = _unitOfWork.OrderDetailRepository.GetAll(u => u.OrderHeader.Id == orderId, includeProperties: "Product")
+            };
+            return View(OrderVM);
+        }
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Employee + "," + SD.Role_Admin)]
+        public IActionResult UpdateOrderDetail(int orderId)
         {
             OrderVM orderVM = new()
             {
