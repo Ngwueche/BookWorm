@@ -81,7 +81,6 @@ public class CartController : Controller
             OrderHeader = new()
         };
         CartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUserRepository.Get(u => u.Id == userId);
-
         CartVM.OrderHeader.Name = CartVM.OrderHeader.ApplicationUser.FirstName;
         //CartVM.OrderHeader.LastName = CartVM.OrderHeader.ApplicationUser.LastName;
         CartVM.OrderHeader.PhoneNumber = CartVM.OrderHeader.ApplicationUser.PhoneNumber;
@@ -181,8 +180,25 @@ public class CartController : Controller
         return RedirectToAction(nameof(OrderConfirmation), new { id = CartVM.OrderHeader.Id });
     }
 
-    public IActionResult OrderConfirmation(int? id)
+    public IActionResult OrderConfirmation(int id)
     {
+        OrderHeader orderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == id, includeProperties: "ApplicationUser");
+        if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
+        {
+            //This checks for customer payment
+            SessionService sessionService = new SessionService();
+            Session session = sessionService.Get(orderHeader.SessionId);
+            if (session.PaymentStatus.Equals("paid", StringComparison.CurrentCultureIgnoreCase))
+            {
+                _unitOfWork.OrderHeaderRepository.UpdateStripePaymentId(id, session.Id, session.PaymentIntentId);
+                _unitOfWork.OrderHeaderRepository.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+                _unitOfWork.Save();
+            }
+        };
+        List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.PaymentIntentId).ToList();
+        _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
+        _unitOfWork.Save();
+
         return View(id);
     }
     private double GetPriceBasedOnQuantity(ShoppingCartVM shoppingCartVM)
