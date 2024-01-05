@@ -4,6 +4,7 @@ using BookWorm.Models.ViewModels;
 using BookWorm.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using System.Security.Claims;
 
 namespace BookWorm.API.Areas.Admin.Controllers
@@ -64,7 +65,55 @@ namespace BookWorm.API.Areas.Admin.Controllers
             TempData["success"] = "Order Details Updated Successfully";
             return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
         }
+        [HttpPost]
+        public IActionResult ShipOrder()
+        {
+            var orderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == OrderVM.OrderHeader.Id);
+            orderHeader.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
+            orderHeader.Carrier = OrderVM.OrderHeader.Carrier;
+            orderHeader.OrderStatus = SD.StatusShipped;
+            orderHeader.ShippingDate = DateTime.Now;
+            if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
+            {
+                orderHeader.PaymentDueDate = (DateTime.Now.AddDays(30));
+            }
+            _unitOfWork.OrderHeaderRepository.Update(orderHeader);
+            _unitOfWork.Save();
+            TempData["success"] = "Order Shipped Successfully";
+            return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+        }
+        [HttpPost]
+        public IActionResult CancelOrder()
+        {
+            var orderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == OrderVM.OrderHeader.Id);
+            if (orderHeader.PaymentStatus == SD.PaymentStatusApproved) //process refund.
+            {
+                var options = new RefundCreateOptions
+                {
+                    Reason = RefundReasons.RequestedByCustomer,
+                    PaymentIntent = orderHeader.PaymentIntentId
+                };
+                var service = new RefundService();
+                Refund refund = service.Create(options);
+                _unitOfWork.OrderHeaderRepository.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusRefunded);
+            }
+            else
+            {
+                _unitOfWork.OrderHeaderRepository.UpdateStatus(orderHeader.Id, SD.StatusCancelled);
 
+            }
+            _unitOfWork.Save();
+            TempData["success"] = "Your Order Cancelled";
+            return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+        }
+        //[HttpPost]
+        //public IActionResult ShipOrder()
+        //{
+        //    _unitOfWork.OrderHeaderRepository.UpdateStatus(OrderVM.OrderHeader.Id, SD.StatusShipped);
+        //    _unitOfWork.Save();
+        //    TempData["success"] = "Order Details Updated Successfully";
+        //    return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+        //}
         #region API CALLS
         [HttpGet]
         public IActionResult GetAll(string status)
