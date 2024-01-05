@@ -34,12 +34,24 @@ namespace BookWorm.API.Areas.Admin.Controllers
         [Authorize(Roles = SD.Role_Employee + "," + SD.Role_Admin)]
         public IActionResult UpdateOrderDetail(int orderId)
         {
-            OrderVM orderVM = new()
+            var orderHeaderFromDb = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == OrderVM.OrderHeader.Id);
+            orderHeaderFromDb.Name = OrderVM.OrderHeader.Name;
+            orderHeaderFromDb.PhoneNumber = OrderVM.OrderHeader.PhoneNumber;
+            orderHeaderFromDb.StreetAddress = OrderVM.OrderHeader.StreetAddress;
+            orderHeaderFromDb.City = OrderVM.OrderHeader.City;
+            orderHeaderFromDb.State = OrderVM.OrderHeader.State;
+            orderHeaderFromDb.PostalCode = OrderVM.OrderHeader.PostalCode;
+            if (!string.IsNullOrEmpty(OrderVM.OrderHeader.Carrier))
             {
-                OrderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
-                OrderDetail = _unitOfWork.OrderDetailRepository.GetAll(u => u.OrderHeader.Id == orderId, includeProperties: "Product")
-            };
-            return View(orderVM);
+                orderHeaderFromDb.Carrier = OrderVM.OrderHeader.Carrier;
+            }
+            if (!string.IsNullOrEmpty(OrderVM.OrderHeader.TrackingNumber))
+            {
+                orderHeaderFromDb.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
+            }
+            _unitOfWork.OrderHeaderRepository.Update(orderHeaderFromDb);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
         }
 
         #region API CALLS
