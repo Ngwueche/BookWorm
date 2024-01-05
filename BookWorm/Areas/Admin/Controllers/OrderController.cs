@@ -9,6 +9,7 @@ using System.Security.Claims;
 namespace BookWorm.API.Areas.Admin.Controllers
 {
     [Area("admin")]
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -53,6 +54,15 @@ namespace BookWorm.API.Areas.Admin.Controllers
             _unitOfWork.OrderHeaderRepository.Update(orderHeaderFromDb);
             _unitOfWork.Save();
             return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
+        }
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+        public IActionResult StartProcessing()
+        {
+            _unitOfWork.OrderHeaderRepository.UpdateStatus(OrderVM.OrderHeader.Id, SD.StatusInProcess);
+            _unitOfWork.Save();
+            TempData["success"] = "Order Details Updated Successfully";
+            return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
         }
 
         #region API CALLS
