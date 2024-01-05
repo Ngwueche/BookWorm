@@ -195,7 +195,7 @@ public class CartController : Controller
                 _unitOfWork.Save();
             }
         };
-        List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.PaymentIntentId).ToList();
+        List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
         _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
         _unitOfWork.Save();
 
