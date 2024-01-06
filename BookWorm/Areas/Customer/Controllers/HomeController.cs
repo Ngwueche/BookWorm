@@ -22,13 +22,6 @@ namespace BookWorm.API.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            //updates the cart as soon as the user logs in
-            var claimIdentity = (ClaimsIdentity)User.Identity;
-            var user = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            if (user != null)
-            {
-                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == user.Value).Count());
-            }
             var products = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
             return View(products);
         }
