@@ -1,8 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-@{
-    var itemCount = HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionCart);
-}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,10 +53,10 @@
                         } 
                         
                     </ul>
-                    @if (itemCount != null)
+                    @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionCart) != null)
                     {
                     <div class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Cart" asp-action="Index"><i class="bi bi-cart"></i><sup>@itemCount</sup></a>
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Cart" asp-action="Index"><i class="bi bi-cart"></i><sup>@(HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionCart))</sup></a>
                     </div>
                     }else{
                         <div class="nav-item">
