@@ -1,5 +1,6 @@
 using BookWorm.DataAccess.Repositories.IRepositories;
 using BookWorm.Models;
+using BookWorm.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -49,14 +50,16 @@ namespace BookWorm.API.Areas.Customer.Controllers
                 //Cart already exists
                 cartFromDB.Count += shoppingCartVM.Count;
                 _unitOfWork.ShoppingCartRepository.Update(cartFromDB);
+                _unitOfWork.Save();
             }
             else
             {
                 //Cart does not exist
                 _unitOfWork.ShoppingCartRepository.Add(shoppingCartVM);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == userId).Count());
             }
             TempData["success"] = "Cart Updated successfully";
-            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
