@@ -19,13 +19,20 @@ builder.Services.Configure<StripeConfig>(builder.Configuration.GetSection("Strip
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); //adds role to IdentityUser without the .AddDefaultTokenProviders(), there will an
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
-// this code customizes the default routing setting in with identityuser and must come after IdentityUser
+// this code customizes the default routing setting in with identityUser and must come after IdentityUser
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = $"/Identity/Account/Login";
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
+
+builder.Services.AddAuthentication().AddFacebook(option =>
+{
+    option.AppId = builder.Configuration.GetSection("Facebook:AppId").Get<string>();
+    option.AppSecret = builder.Configuration.GetSection("Facebook:AppSecret").Get<string>();
+});
+
 //configure session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
