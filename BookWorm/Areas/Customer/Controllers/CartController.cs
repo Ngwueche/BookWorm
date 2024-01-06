@@ -196,6 +196,7 @@ public class CartController : Controller
                 _unitOfWork.OrderHeaderRepository.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
                 _unitOfWork.Save();
             }
+            HttpContext.Session.Clear();
         };
         List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
         _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
