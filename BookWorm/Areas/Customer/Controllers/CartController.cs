@@ -4,6 +4,7 @@ using BookWorm.Models.Models;
 using BookWorm.Models.ViewModels;
 using BookWorm.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
@@ -14,11 +15,13 @@ namespace BookWorm.API.Areas.Customer.Controllers;
 public class CartController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IEmailSender _emailSender;
     [BindProperty]
     public CartVM CartVM { get; set; }
-    public CartController(IUnitOfWork unitOfWork)
+    public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
     {
         _unitOfWork = unitOfWork;
+        _emailSender = emailSender;
     }
 
     public IActionResult Index()
@@ -198,6 +201,7 @@ public class CartController : Controller
             }
             HttpContext.Session.Clear();
         };
+        _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "Order Confirmation - Bookworm", $"<p>Your order is placed successfully and is being processed. Thank you.<p/><br/> <p>Your order id: {orderHeader.Id}");
         List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
         _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
         _unitOfWork.Save();
