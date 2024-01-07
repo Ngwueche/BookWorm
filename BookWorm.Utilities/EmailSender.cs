@@ -15,7 +15,7 @@ namespace BookWorm.Utilities
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var client = new SendGridClient(SendGridSecretKey);
-            var from = new EmailAddress("hello@bookworm.com");
+            var from = new EmailAddress("hello@bookworm.com", "BookWorm");
             var to = new EmailAddress(email);
             var message = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
             return client.SendEmailAsync(message);
