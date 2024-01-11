@@ -190,7 +190,7 @@ public class CartController : Controller
         OrderHeader orderHeader = _unitOfWork.OrderHeaderRepository.Get(u => u.Id == id, includeProperties: "ApplicationUser");
         if (orderHeader.PaymentStatus == SD.PaymentStatusDelayedPayment)
         {
-            //This checks for customer payment
+            //This checks for customer order
             SessionService sessionService = new SessionService();
             Session session = sessionService.Get(orderHeader.SessionId);
             if (session.PaymentStatus.Equals("paid", StringComparison.CurrentCultureIgnoreCase))
@@ -201,7 +201,8 @@ public class CartController : Controller
             }
             HttpContext.Session.Clear();
         };
-        _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "Order Confirmation - Bookworm", $"<p>Your order is placed successfully and is being processed. Thank you.<p/><br/> <p>Your order id: {orderHeader.Id}");
+
+        //_emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "Order Confirmation - Bookworm", $"<p>Your order is placed successfully and is being processed. Thank you.<p/><br/> <p>Your order id: {orderHeader.Id}");
         List<ShoppingCartVM> shoppingCartVM = _unitOfWork.ShoppingCartRepository.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
         _unitOfWork.ShoppingCartRepository.RemoveRange(shoppingCartVM);
         _unitOfWork.Save();
